@@ -85,7 +85,7 @@ function createBadge(data, domain) {
   });
   badge.querySelector('#verum-btn').addEventListener('click', (e) => {
     e.stopPropagation();
-    window.open('https://verumsignal.com/report?url=' + encodeURIComponent(window.location.href), '_blank');
+    window.open('https://verumsignal.com/outlet/' + domain, '_blank');
   });
 
   document.body.appendChild(badge);
