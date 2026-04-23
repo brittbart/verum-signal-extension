@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Verum Signal",
+  "version": "1.1",
+  "description": "Signal through the noise. Reliability ratings for news sources.",
+  "permissions": ["activeTab"],
+  "host_permissions": [
+    "https://web-production-c94e7.up.railway.app/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Verum Signal"
+  }
+}
