@@ -1,0 +1,14 @@
+# Backups created by patch scripts
+*.bak
+*.bak.*
+
+# Editor swap files
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.zip

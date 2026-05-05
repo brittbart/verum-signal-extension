@@ -1,4 +1,4 @@
-const API_BASE = "https://web-production-c94e7.up.railway.app";
+const API_BASE = "https://verumsignal.com";
 
 function extractDomain(url) {
   try {
@@ -41,10 +41,18 @@ function renderLoading() {
 
 function renderRating(domain, data) {
   const score = Math.round(data.score ?? 0);
-  let tier = "low";
-  if (score >= 75) tier = "high";
-  else if (score >= 45) tier = "medium";
-  const ratingText = tier.charAt(0).toUpperCase() + tier.slice(1);
+
+  let band = "low";
+  if (score >= 75) band = "high";
+  else if (score >= 45) band = "medium";
+
+  const tierLabel = data.tier || (band.charAt(0).toUpperCase() + band.slice(1));
+
+  const earlyData =
+    data.tier === "Limited Data" ||
+    (!data.tier && (data.verdict_count ?? data.total_claims ?? 0) < 50);
+
+  const verdictCount = data.verdict_count ?? data.total_claims ?? 0;
   const asOf = formatDate(data.as_of || data.last_updated);
 
   return `
@@ -57,18 +65,18 @@ function renderRating(domain, data) {
       </div>
       <div class="score-block fu fu-2">
         <div class="score-row">
-          <span class="score-value ${tier}">${score}</span>
-          <span class="score-suffix">%</span>
-          <span class="rating-pill ${tier}">
+          <span class="score-value ${band}">${score}</span>
+          <span class="score-suffix">/100</span>
+          <span class="rating-pill ${band}">
             <span class="bullet"></span>
-            ${ratingText}
+            ${tierLabel}
           </span>
         </div>
         <div class="score-bar">
-          <div class="score-bar-fill ${tier}" style="width: ${score}%;"></div>
+          <div class="score-bar-fill ${band}" style="width: ${score}%;"></div>
         </div>
         <div class="last-updated">
-          <span class="last-updated-label">Last updated</span>
+          <span class="last-updated-label">${verdictCount} verdict${verdictCount === 1 ? "" : "s"}${earlyData ? " · early data" : ""}</span>
           <span class="last-updated-value">${asOf}</span>
         </div>
       </div>
@@ -202,8 +210,3 @@ async function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
-document.addEventListener("DOMContentLoaded", () => {
-  const refreshBtn = document.getElementById("refresh-btn");
-  if (refreshBtn) refreshBtn.addEventListener("click", init);
-});

@@ -1,11 +1,18 @@
 {
   "manifest_version": 3,
   "name": "Verum Signal",
-  "version": "1.1",
-  "description": "Signal through the noise. Reliability ratings for news sources.",
+  "version": "1.3",
+  "description": "See claim-level reliability scores for any news article. Evidence-based, methodology-driven, no editorial labels.",
+  "author": "Verum Signal",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "permissions": ["activeTab"],
   "host_permissions": [
-    "https://web-production-c94e7.up.railway.app/*"
+    "https://verumsignal.com/*",
+    "https://www.verumsignal.com/*"
   ],
   "content_scripts": [
     {
@@ -16,6 +23,11 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Verum Signal"
+    "default_title": "Verum Signal",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
   }
 }

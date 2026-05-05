@@ -12,16 +12,24 @@ function createBadge(data, domain) {
   else if (score >= 45) tier = 'medium';
 
   const colors = {
-    high:   { score: '#4ADE80', pill: 'rgba(74,222,128,0.12)',  pillBorder: 'rgba(74,222,128,0.25)',  label: 'High' },
-    medium: { score: '#FBBF24', pill: 'rgba(251,191,36,0.12)',  pillBorder: 'rgba(251,191,36,0.25)',  label: 'Med' },
-    low:    { score: '#F87171', pill: 'rgba(248,113,113,0.12)', pillBorder: 'rgba(248,113,113,0.25)', label: 'Low' },
+    high:   { score: '#4ADE80', pill: 'rgba(74,222,128,0.12)',  pillBorder: 'rgba(74,222,128,0.25)' },
+    medium: { score: '#FBBF24', pill: 'rgba(251,191,36,0.12)',  pillBorder: 'rgba(251,191,36,0.25)' },
+    low:    { score: '#F87171', pill: 'rgba(248,113,113,0.12)', pillBorder: 'rgba(248,113,113,0.25)' },
   };
   const c = colors[tier];
+
+  // Use the methodology tier from the API when available; fall back to the
+  // score band's name for older API responses without a tier field.
+  const fallbackLabel = { high: 'High', medium: 'Med', low: 'Low' }[tier];
+  const tierLabel = data.tier || fallbackLabel;
 
   const badge = document.createElement('div');
   badge.id = 'verum-badge';
 
-  const earlyWarning = data.total_claims < 50
+  // "Early data" only for Limited Data tier; older API without tier falls back to verdict count.
+  const showEarly = data.tier === 'Limited Data' ||
+    (!data.tier && (data.verdict_count ?? data.total_claims ?? 0) < 50);
+  const earlyWarning = showEarly
     ? '<div style="margin-top:8px;padding-top:8px;border-top:0.5px solid rgba(255,255,255,0.08);font-size:9px;color:rgba(255,255,255,0.5);font-family:sans-serif;">Early data · score may shift</div>'
     : '';
 
@@ -54,7 +62,7 @@ function createBadge(data, domain) {
     </style>
     <div style="position:relative;z-index:1;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <svg width="80" height="16" viewBox="0 0 80 16" xmlns="http://www.w3.org/2000/svg">
+        <svg width="105" height="16" viewBox="0 0 105 16" xmlns="http://www.w3.org/2000/svg">
           <path d="M2 8 Q4.5 2 7 8 Q9.5 14 12 8 Q14.5 2 17 8" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-linecap="round"/>
           <circle cx="20" cy="8" r="2" fill="#ec4899"/>
           <text x="25" y="12" font-family="Trebuchet MS,sans-serif" font-size="8.5" font-weight="700" fill="#ffffff" letter-spacing="1">VERUM</text>
@@ -66,7 +74,7 @@ function createBadge(data, domain) {
         <span style="font-size:26px;line-height:1;letter-spacing:-1px;color:${c.score};">${score}</span>
         <span style="font-size:13px;color:rgba(255,255,255,0.2);">/100</span>
         <span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:100px;font-size:9px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;background:${c.pill};border:0.5px solid ${c.pillBorder};color:${c.score};">
-          <span style="width:3px;height:3px;border-radius:50%;background:${c.score};display:inline-block;"></span>${c.label}
+          <span style="width:3px;height:3px;border-radius:50%;background:${c.score};display:inline-block;"></span>${tierLabel}
         </span>
       </div>
       <div style="width:100%;height:2px;background:rgba(255,255,255,0.05);border-radius:1px;overflow:hidden;margin-bottom:8px;">
@@ -94,7 +102,7 @@ function createBadge(data, domain) {
 function checkSource() {
   const domain = getDomain();
   if (!domain || domain === 'newtab' || domain === '') return;
-  fetch('https://web-production-c94e7.up.railway.app/api/source?domain=' + domain)
+  fetch('https://verumsignal.com/api/source?domain=' + domain)
     .then(r => r.json())
     .then(data => { if (data.status === 'found') createBadge(data, domain); })
     .catch(() => {});

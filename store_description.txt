@@ -1,0 +1,43 @@
+Verum Signal shows you how reliable a news outlet's claims are — at the moment you're reading them.
+
+When you visit any news article, a small badge appears in the corner showing that outlet's reliability score, tier, and verdict count. Click the extension icon for a full breakdown.
+
+WHAT MAKES VERUM SIGNAL DIFFERENT
+
+We don't issue editorial judgments. We surface evidence, sources, and verdicts you can examine yourself.
+
+Most existing tools rate whole outlets based on human editorial judgment. Verum Signal does something different: we extract individual claims from news articles and evaluate each one against independent sources, then build outlet scores from the evidence over time. The methodology is published, the verdicts are sourced, and we never use editorial labels like "biased" or "unreliable."
+
+WHAT YOU SEE
+
+- A reliability score (0-100) for the current outlet, updated continuously as new claims are evaluated
+- A tier classification (Published, Stabilizing, Limited Data) reflecting how much evidence backs the score
+- A verdict distribution showing how the outlet's claims have been evaluated across eight verdict types
+- A link to the full outlet detail page with score history, recent verdicts, and per-article reports
+- An "Analyze this article" option that runs verification on demand for the current page
+
+OUR METHODOLOGY
+
+Every claim is categorized as either an outlet claim (something the publication asserts in its own voice) or an attributed claim (something the outlet accurately quotes someone else saying). We score outlets on what they assert themselves, not on who they choose to quote. This distinction is core to our methodology and is documented at verumsignal.com/methodology.
+
+Verdicts come in eight types: Supported, Plausible, Corroborated, Overstated, Disputed, Not Supported, Opinion, and Not Verifiable. Each verdict links to the sources used to evaluate the claim. Scores update as new verdicts come in.
+
+WHAT WE DO NOT DO
+
+- We do not use political bias labels (left, right, center)
+- We do not assign "reliability tiers" by editorial judgment
+- We do not show ads or have any advertising relationships
+- We do not sell user data — see our privacy policy at verumsignal.com/privacy
+- We do not require an account, login, or signup to use the extension or the website
+
+PRIVACY
+
+The extension reads the hostname (e.g., foxnews.com) of pages you visit and looks up the score for that outlet. We do not transmit page content, full URLs, or any text from the page. Article URLs are only sent if you explicitly click "Analyze this article." Full privacy policy: verumsignal.com/privacy
+
+LEARN MORE
+
+Methodology: verumsignal.com/methodology
+Leaderboard: verumsignal.com/leaderboard
+Outlet detail pages: verumsignal.com/outlet/[domain]
+
+Verum Signal is independent, evidence-driven, and built to be useful to people across the political spectrum. Our goal is to help you think critically — not to tell you what to think.
