@@ -1,15 +1,23 @@
-cat > /mnt/c/Users/britt/OneDrive/Desktop/veris-extension/popup.html << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="header">
-    <div class="logo">Veris</div>
+  <div class="popup">
+    <div class="header">
+      <div class="logo">
+        <svg width="118" height="18" viewBox="0 0 118 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 9 Q5 2 8 9 Q11 16 14 9 Q17 2 20 9" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="23" cy="9" r="2.2" fill="#ec4899"/>
+          <text x="29" y="13" font-family="Trebuchet MS, sans-serif" font-size="10" font-weight="700" fill="#ffffff" letter-spacing="1.2">VERUM</text>
+          <text x="74" y="13" font-family="Trebuchet MS, sans-serif" font-size="10" font-style="italic" fill="#c084fc" letter-spacing="1.2">SIGNAL</text>
+        </svg>
+      </div>
+    </div>
+    <div id="content" class="loading">Checking source...</div>
   </div>
-  <div id="content" class="loading">Checking source...</div>
   <script src="popup.js"></script>
 </body>
 </html>
-EOF
