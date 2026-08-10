@@ -12,9 +12,14 @@
   --surface: rgba(255,255,255,0.03);
   --font-display: "DM Serif Display", serif;
   --font-sans: "DM Sans", sans-serif;
-  --r-high: #4ADE80;
-  --r-medium: #FBBF24;
-  --r-low: #F87171;
+  /* D2 (2026-08-10, Britt): standardized to mobile's 80/60/40 four-band
+     scheme -- was 75/45 three-band with different colors. --r-disputed
+     is unrelated (disputed-claim styling) and intentionally untouched,
+     even though it happened to share --r-low's old value. */
+  --r-high: #22c55e;
+  --r-medhigh: #86EFAC;
+  --r-medlow: #f59e0b;
+  --r-low: #ef4444;
   --r-disputed: #F87171;
 }
 
@@ -166,7 +171,8 @@ html, body {
   font-weight: 400;
 }
 .score-value.high { color: var(--r-high); }
-.score-value.medium { color: var(--r-medium); }
+.score-value.medhigh { color: var(--r-medhigh); }
+.score-value.medlow { color: var(--r-medlow); }
 .score-value.low { color: var(--r-low); }
 
 .score-suffix {
@@ -189,19 +195,24 @@ html, body {
   margin-left: auto;
 }
 .rating-pill.high {
-  background: rgba(74,222,128,0.1);
+  background: rgba(34,197,94,0.1);
   color: var(--r-high);
-  border: 0.5px solid rgba(74,222,128,0.2);
+  border: 0.5px solid rgba(34,197,94,0.2);
 }
-.rating-pill.medium {
-  background: rgba(251,191,36,0.1);
-  color: var(--r-medium);
-  border: 0.5px solid rgba(251,191,36,0.2);
+.rating-pill.medhigh {
+  background: rgba(134,239,172,0.1);
+  color: var(--r-medhigh);
+  border: 0.5px solid rgba(134,239,172,0.2);
+}
+.rating-pill.medlow {
+  background: rgba(245,158,11,0.1);
+  color: var(--r-medlow);
+  border: 0.5px solid rgba(245,158,11,0.2);
 }
 .rating-pill.low {
-  background: rgba(248,113,113,0.1);
+  background: rgba(239,68,68,0.1);
   color: var(--r-low);
-  border: 0.5px solid rgba(248,113,113,0.2);
+  border: 0.5px solid rgba(239,68,68,0.2);
 }
 .rating-pill .bullet {
   width: 5px;
@@ -223,9 +234,10 @@ html, body {
   border-radius: 2px;
   transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.score-bar-fill.high { background: linear-gradient(90deg, var(--r-high) 0%, #86EFAC 100%); }
-.score-bar-fill.medium { background: linear-gradient(90deg, var(--r-medium) 0%, #FCD34D 100%); }
-.score-bar-fill.low { background: linear-gradient(90deg, var(--r-low) 0%, #FCA5A5 100%); }
+.score-bar-fill.high { background: linear-gradient(90deg, var(--r-high) 0%, #4ADE80 100%); }
+.score-bar-fill.medhigh { background: linear-gradient(90deg, var(--r-medhigh) 0%, #BBF7D0 100%); }
+.score-bar-fill.medlow { background: linear-gradient(90deg, var(--r-medlow) 0%, #FBBF24 100%); }
+.score-bar-fill.low { background: linear-gradient(90deg, var(--r-low) 0%, #F87171 100%); }
 
 .last-updated {
   display: flex;

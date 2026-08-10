@@ -7,20 +7,25 @@ function createBadge(data, domain) {
   if (existing) existing.remove();
 
   const score = Math.round(data.score ?? 0);
+  // D2 (2026-08-10, Britt): standardized to mobile's 80/60/40 four-band
+  // scheme -- was 75/45 three-band with different colors, so the same
+  // outlet could render differently on mobile vs. this extension.
   let tier = 'low';
-  if (score >= 75) tier = 'high';
-  else if (score >= 45) tier = 'medium';
+  if (score >= 80) tier = 'high';
+  else if (score >= 60) tier = 'medhigh';
+  else if (score >= 40) tier = 'medlow';
 
   const colors = {
-    high:   { score: '#4ADE80', pill: 'rgba(74,222,128,0.12)',  pillBorder: 'rgba(74,222,128,0.25)' },
-    medium: { score: '#FBBF24', pill: 'rgba(251,191,36,0.12)',  pillBorder: 'rgba(251,191,36,0.25)' },
-    low:    { score: '#F87171', pill: 'rgba(248,113,113,0.12)', pillBorder: 'rgba(248,113,113,0.25)' },
+    high:    { score: '#22c55e', pill: 'rgba(34,197,94,0.12)',   pillBorder: 'rgba(34,197,94,0.25)' },
+    medhigh: { score: '#86efac', pill: 'rgba(134,239,172,0.12)', pillBorder: 'rgba(134,239,172,0.25)' },
+    medlow:  { score: '#f59e0b', pill: 'rgba(245,158,11,0.12)',  pillBorder: 'rgba(245,158,11,0.25)' },
+    low:     { score: '#ef4444', pill: 'rgba(239,68,68,0.12)',   pillBorder: 'rgba(239,68,68,0.25)' },
   };
   const c = colors[tier];
 
   // Use the methodology tier from the API when available; fall back to the
   // score band's name for older API responses without a tier field.
-  const fallbackLabel = { high: 'High', medium: 'Med', low: 'Low' }[tier];
+  const fallbackLabel = { high: 'High', medhigh: 'Med-High', medlow: 'Med-Low', low: 'Low' }[tier];
   const tierLabel = data.tier || fallbackLabel;
 
   const badge = document.createElement('div');

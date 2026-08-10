@@ -42,11 +42,15 @@ function renderLoading() {
 function renderRating(domain, data) {
   const score = Math.round(data.score ?? 0);
 
+  // D2 (2026-08-10, Britt): standardized to mobile's 80/60/40 four-band
+  // scheme -- was 75/45 three-band, matching content.js's badge.
   let band = "low";
-  if (score >= 75) band = "high";
-  else if (score >= 45) band = "medium";
+  if (score >= 80) band = "high";
+  else if (score >= 60) band = "medhigh";
+  else if (score >= 40) band = "medlow";
 
-  const tierLabel = data.tier || (band.charAt(0).toUpperCase() + band.slice(1));
+  const bandLabel = { high: 'High', medhigh: 'Med-High', medlow: 'Med-Low', low: 'Low' }[band];
+  const tierLabel = data.tier || bandLabel;
 
   const earlyData =
     data.tier === "Limited Data" ||
